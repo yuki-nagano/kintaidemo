@@ -1,1 +1,1 @@
-web: gunicorn kintai-demo.wsgi
+web: gunicorn kintaidemo.wsgi
