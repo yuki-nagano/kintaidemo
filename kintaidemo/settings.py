@@ -26,7 +26,7 @@ DEBUG = os.getenv('DEBUG')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kintaidemo.herokuapp.com']
 
 
 # Application definition
