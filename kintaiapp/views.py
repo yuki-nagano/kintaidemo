@@ -8,4 +8,4 @@ def index(request):
     return HttpResponse('Hello World')
 
 def dokintai(request):
-    return render(request, "dokintai/home.html")
+    return render(request, "kintaiapp/home.html")
