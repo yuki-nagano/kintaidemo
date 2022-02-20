@@ -14,11 +14,13 @@ from pathlib import Path
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
+import django_heroku
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-# False if not in os.environ because of casting above
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
@@ -26,6 +28,7 @@ DEBUG = os.getenv('DEBUG')
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# Memo: this is also set on Heroku Config
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 ALLOWED_HOSTS = ['kintaidemo.herokuapp.com']
@@ -120,10 +123,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = 'static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+django_heroku.settings(locals())
