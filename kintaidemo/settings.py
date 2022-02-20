@@ -132,6 +132,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+# Template files(HTML)
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, "templates"),
+    # here you can add another templates directory if you wish.
+)
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
