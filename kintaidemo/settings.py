@@ -15,12 +15,10 @@ https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settin
 
 from pathlib import Path
 import os
-from os.path import join, dirname
 from dotenv import load_dotenv
 import django_heroku
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -34,7 +32,7 @@ DEBUG = os.getenv('DEBUG')
 # Memo: this is also set on Heroku Config
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-ALLOWED_HOSTS = ['kintaidemo.herokuapp.com']
+ALLOWED_HOSTS = ['kintaidemo.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -132,7 +130,7 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'kintaiapp/static'),
 )
 
 # Default primary key field type
