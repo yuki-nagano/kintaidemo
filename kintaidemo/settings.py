@@ -8,6 +8,9 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
+
+settings.py for Heroku
+https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
 """
 
 from pathlib import Path
@@ -62,7 +65,7 @@ ROOT_URLCONF = 'kintaidemo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,12 +133,6 @@ STATIC_URL = '/static/'
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-)
-
-# Template files(HTML)
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, "templates"),
-    # here you can add another templates directory if you wish.
 )
 
 # Default primary key field type
