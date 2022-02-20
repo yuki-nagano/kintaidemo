@@ -1,6 +1,6 @@
 # Overview
 [Back-End]  
-Language: Python 3.9.6  
+Language: Python 3.8.6  
 Framework: Django 4.0.2  
 Database : Heroku Postgres   
 
