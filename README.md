@@ -26,8 +26,8 @@ https://amateur-engineer-blog.com/create-heroku-postgres/
 Heroku PostgresにDBeaverで接続する  
 https://qiita.com/krile136/items/7578ecc45255b59c01d1
 
-環境変数を別ファイルで管理  
-https://self-methods.com/django-environ/
+環境変数を別ファイル(.env)で管理  
+https://lotus-base.com/blog/19/
 
 Djangoでのjs,cssの扱い方  
 https://creepfablic.site/2019/11/20/django-static/  
