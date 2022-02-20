@@ -20,6 +20,7 @@ import django_heroku
 
 load_dotenv()
 
+# 一番上のプロジェクトディレクトリをベースとして指定
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'kintaidemo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [os.path.join(BASE_DIR, "kintaiapp/templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
