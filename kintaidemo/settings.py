@@ -12,12 +12,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from os.path import join, dirname
 from dotenv import load_dotenv
 
-load_dotenv()
-
-# Set the project base directory
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # False if not in os.environ because of casting above
 # SECURITY WARNING: don't run with debug turned on in production!
