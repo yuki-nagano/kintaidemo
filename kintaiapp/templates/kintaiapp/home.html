@@ -1,89 +1,32 @@
-{% load static %}
-<!DOCTYPE html>
-<html class="fa-events-icons-ready" lang=" ">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 共通部分(ヘッダーフッター)は以下をextends -->
+{% extends "kintaiapp/common/base.html" %}
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <!-- Load CSS file -->
-        <link rel="stylesheet" type="text/css" href="{% static 'kintaiapp/css/style.css' %}">
-        <!--  Google fonts for h1 -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-
-        <!-- NAV BAR START -->
-        <nav class="navbar navbar-expand-lg navbar-light font_benasneue bg_rose">
-            <a class="navbar-brand" href="#">Kintai Demo</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Record</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Account
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Account Settings</a>
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                </ul>
+{% block content %}
+    <!-- Digital clock -->
+    <div class="clock section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12">
+                    <h1 class="font_benasneue">
+                        HELLO USER!
+                    </h1>
+                    <h1 class="currentTime font_benasneue" id="clock">
+                        00:00:00
+                    </h1>
+                </div>
             </div>
-        </nav>
-        <!-- NAV BAR END -->
-
-    </head>
-
-    <body>
-        <!-- Digital clock -->
-        <div class="clock section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-sm-12">
-                        <h1 class="font_benasneue">
-                            HELLO USER!
-                        </h1>
-                        <h1 class="currentTime font_benasneue" id="clock">
-                            00:00:00
-                        </h1>
+        </div>
+    </div>
+    <!-- Button clock -->
+    <div class="dokintai-btn">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12">
+                    <div class="text-center">
+                        <button type="button" id="dokintai" class="btn bg_rose btn-lg font_benasneue">Start working</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Digital clock -->
-        <div class="dokintai-btn">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-sm-12">
-                        <div class="text-center">
-                            <button type="button" id="dokintai" class="btn bg_rose btn-lg font_benasneue">Start working</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-        <!-- JS for Bootstrap -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <!-- Load js files -->
-        <script src="{% static 'kintaiapp/js/script.js' %}"></script>
-    </body>
-
-    </html>
+    </div>
+{% endblock %}
