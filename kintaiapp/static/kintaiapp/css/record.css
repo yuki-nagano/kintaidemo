@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+/* For mobile */
+@media (max-width: 767px) {
+    #css{
+        width:auto;
+    }
+
+    table tr th {
+        font-size: 14px;
+    }
+
+    table tr {
+        font-size: 13px;
+    }
+    
+}
+
+
+body.for_record {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(../img/bg2.jpg);
+    background-size: cover;
+    /* background-repeat: no-repeat;
+    background-attachment: fixed; */
+}
+
+h3 {
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: 8%;
+}    
+
+table{
+    margin-bottom: 15%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+table tr{
+    border-bottom: solid 1px #eee;
+    cursor: pointer;
+}
+
+/* table tr:hover{
+background-color: #d4f0fd;
+} */
+
+table th,table td{
+    text-align: center;
+    width: 25%;
+    padding: 15px 0;
+}
+
+/* table td.icon{
+    background-size: 35px;
+    background-position: left 5px center;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+} */
+
+/* table td.icon {
+    background-image: url(/lists/pics/mini.PNG)
+} */

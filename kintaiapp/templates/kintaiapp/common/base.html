@@ -15,6 +15,7 @@
 
         <!-- Load CSS files -->
         <link rel="stylesheet" type="text/css" href="{% static 'kintaiapp/css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'kintaiapp/css/record.css' %}">
 
         <!-- NAV BAR START -->
         <nav class="navbar navbar-expand-lg navbar-light font_benasneue bg_rose">
@@ -28,7 +29,7 @@
                         <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Record</a>
+                        <a class="nav-link" href="{% url 'record' %}">Record</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

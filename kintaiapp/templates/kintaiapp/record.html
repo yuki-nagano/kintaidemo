@@ -1,0 +1,36 @@
+<!-- 共通部分(ヘッダーフッター)は以下をextends -->
+{% extends "kintaiapp/common/base.html" %}
+
+{% block content %}
+<body class="for_record">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12">
+                <h3>Your Working History</h3>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Break</th>
+
+                    </tr>
+                    {% for record in kintailist %}
+                    <tr>
+                        <td>{{ record.workingday }}</td>
+                        <!-- MEMO: no need space bewteen : and "H:i" -->
+                        <td>{{ record.begintime | time:"H:i" }}</td>
+                        <td>{{ record.finishtime | time:"H:i" }}</td>
+                        <td>{{ record.breaktime }}</td>
+                        <td><a href="/record">✏️</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <footer>
+            <a href="/">Back to home</a>
+        </footer>
+    </div>
+</body>
+{% endblock %}

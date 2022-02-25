@@ -32,6 +32,21 @@ def dokintai(request):
     return render(request, "kintaiapp/home.html")
 
 """
+    RECORD
+    - 勤怠一覧表示
+    - 勤怠編集 (追加予定)
+"""
+def record(request):
+    # 一覧表示
+    if request.method == 'GET':
+        data = Kintai.objects.all()
+        data_dict = {'kintailist': data}
+        for i in data:
+            if i.breaktime is None:
+                i.breaktime = "-"
+        return render(request, 'kintaiapp/record.html', data_dict)
+    
+"""
     Return status depending on isWorking
     isWorkingのステータスによって Start working か End working を返す
 """
