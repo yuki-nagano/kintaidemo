@@ -2,7 +2,6 @@
 {
 
 const clock = document.getElementById('clock');
-const btn = document.getElementById('btn');
 
 // 時間表示
 function clockRunner () {

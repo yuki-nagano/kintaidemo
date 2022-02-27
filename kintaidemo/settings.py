@@ -124,11 +124,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "Asia/Tokyo" # タイムゾーンを日本時間に設定
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False # TrueにするとDBのタイムゾーンはUTCとなるためFalseに設定
 
 
 # Static files (CSS, JavaScript, Images)
@@ -148,3 +148,8 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
+
+# 日付表示をYYYY-MM-DDに変更
+DATE_FORMAT = 'Y-m-d'
+DATETIME_FORMAT = 'Y-m-d H:i'
+USE_L10N = False

@@ -1,41 +1,99 @@
-from datetime import date, datetime
-from xmlrpc.client import Boolean
+import logging
+
 from django.shortcuts import render
 from django.http import HttpResponse
 
 from kintaiapp.models import Kintai, WorkingStatus
-from django.utils.timezone import localtime
 from django.utils import timezone
+from datetime import datetime
+from datetime import timedelta
 
-# List all endpoints
+# ログ
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
-status_for_display = {
-    0: "End working",
-    1: "Start working"
+STATUS_FOR_DISPLAY = {
+    True : "End working",
+    False : "Start working"
 }
 
-def index(request):
-    # Hello world for testing 
-    return HttpResponse('Hello World')
-
+###
+#  HOME
+#  - ホーム画面
+###
 def home(request):
-    data = WorkingStatus.objects.filter(u_id=180) # とりあえずidは固定
-    for user in data:
-        # ステータスチェック
-        res_dict = {
-            'text': _get_display_stat(user.isworking)
-            }
+    u_id = 180 # TODO とりあえず今は固定
+    user = WorkingStatus.objects.get(u_id=u_id)
+    # ステータスチェック
+    res_dict = {
+        'text': STATUS_FOR_DISPLAY[user.isworking]
+        }
     return render(request, "kintaiapp/home.html", res_dict)
 
+###
+#  DOKINTAI
+#  - 勤怠入力機能
+###
 def dokintai(request):
-    return render(request, "kintaiapp/home.html")
+    u_id = 180 # TODO とりあえず今は固定
+    current_status = WorkingStatus.objects.get(u_id=u_id)
 
-"""
-    RECORD
-    - 勤怠一覧表示
-    - 勤怠編集 (追加予定)
-"""
+    logger.debug(f'Update Kintai - id={u_id} working status is {current_status.isworking}')
+
+    # ステータスチェック
+    if current_status.isworking:
+        # 退勤時間記入
+        # 同日でfinishtimeがnullのレコードがあればupdateする
+        kintai_today = Kintai.objects.get(
+                            u_id=u_id, 
+                            workingday=datetime.today(), 
+                            finishtime=None
+                            )
+        if kintai_today:
+            # 休憩時間計算
+            endtime = datetime.now()
+            breaktime = _calc_breaktime(kintai_today.begintime, endtime)
+            # 更新
+            kintai_today.finishtime = endtime
+            kintai_today.breaktime = breaktime
+        else:
+            # isworkingでレコードがない場合：退勤時間のみを記入しレコード追加 TODO
+            kintai_today = Kintai.objects.create(
+            u_id=u_id,
+            workingday=datetime.today(),
+            finishtime=datetime.now(),
+        )
+        # isWorkingのフラグ下ろす
+        current_status.isworking = False
+    else:
+        # 勤怠レコード追加
+        kintai_today = Kintai.objects.create(
+            u_id=u_id,
+            workingday=datetime.today(),
+            begintime=datetime.now(),
+        )
+        # isWorkingのフラグ上げる
+        current_status.isworking = True
+
+    # 更新内容を保存
+    kintai_today.save()
+    current_status.save()
+    
+    logger.debug(f'Successfully saved Kintai - id={u_id} working status is now {current_status.isworking}')
+
+    res_dict = {
+        'text': STATUS_FOR_DISPLAY[current_status.isworking]
+        }
+        
+    return render(request, "kintaiapp/home.html", res_dict)
+
+
+###
+# RECORD
+#  - 勤怠一覧表示
+#  - 勤怠編集 (追加予定)
+###
 def record(request):
     # 一覧表示
     if request.method == 'GET':
@@ -45,11 +103,24 @@ def record(request):
             if i.breaktime is None:
                 i.breaktime = "-"
         return render(request, 'kintaiapp/record.html', data_dict)
-    
-"""
-    Return status depending on isWorking
-    isWorkingのステータスによって Start working か End working を返す
-"""
-def _get_display_stat(isWorking: bool) -> str:
-    status = status_for_display[0] if isWorking else status_for_display[1]
-    return status
+
+###
+# Calculate break time with start time and end time
+# 開始時間と終了時間から休憩時間を計算
+# 
+# 現在の設定
+# 　 - 4時間勤務：30分休憩
+# 　 - 8時間勤務：1時間休憩
+###
+def _calc_breaktime(start, end):
+    total_hour = end - start 
+    if total_hour.seconds < 14400:
+        # 4時間未満
+        return timedelta()
+    elif total_hour.seconds >= 14400 and total_hour < 28800:
+        # 4時間以上8時間未満
+        return datetime.timedelta(seconds = 1800)
+    elif total_hour.seconds >= 28800:
+        # 8時間以上
+        return datetime.timedelta(seconds = 3600)
+
