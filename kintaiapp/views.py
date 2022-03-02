@@ -7,6 +7,7 @@ from kintaiapp.models import Kintai, WorkingStatus
 from django.utils import timezone
 from datetime import datetime
 from datetime import timedelta
+import csv
 
 # ログ
 logging.basicConfig(level=logging.INFO)
@@ -30,6 +31,29 @@ def home(request):
         'text': STATUS_FOR_DISPLAY[user.isworking]
         }
     return render(request, "kintaiapp/home.html", res_dict)
+
+###
+#  EXPORT as CSV
+#  - CSVで出力
+###
+def export_csv():
+    # ready a csv file
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=export.csv'
+
+    writer = csv.writer(response)
+
+    # Set the header
+    header = ['u_id','start time','end time','breaktime']
+    writer.writerow(header)
+
+    # export records of this month
+    this_month = datetime.now().month
+    data = Kintai.objects.filter(begintime__month=this_month)
+    for i in data:
+        writer.writerow([i.u_id,i.begintime, i.finishtime,i.breaktime])
+
+    return response
 
 ###
 #  DOKINTAI
