@@ -36,7 +36,7 @@ def home(request):
 #  EXPORT as CSV
 #  - CSVで出力
 ###
-def export_csv():
+def export_csv(request):
     # ready a csv file
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=export.csv'
@@ -91,7 +91,7 @@ def dokintai(request):
         # isWorkingのフラグ下ろす
         current_status.isworking = False
     else:
-        # 勤怠レコード追加
+        # 出勤時間記入 (勤怠レコード追加)
         kintai_today = Kintai.objects.create(
             u_id=u_id,
             workingday=datetime.today(),
@@ -121,7 +121,7 @@ def dokintai(request):
 def record(request):
     # 一覧表示
     if request.method == 'GET':
-        data = Kintai.objects.all()
+        data = Kintai.objects.all().order_by('id') # memo: 降順は'-id'
         data_dict = {'kintailist': data}
         for i in data:
             if i.breaktime is None:
