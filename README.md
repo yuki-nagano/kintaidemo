@@ -1,6 +1,8 @@
+![demo](https://user-images.githubusercontent.com/32025126/156654218-a8a7c993-f628-42df-855a-eddf5f1c65e9.gif)
+
 # Overview
 勤怠管理アプリ - Employee Time Tracker  
-LIVE: https://kintaidemo.herokuapp.com/  
+LIVE: https://kintaidemo.herokuapp.com/
 
 # Feature
 - Create a record with start time
