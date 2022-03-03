@@ -4,9 +4,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from kintaiapp.models import Kintai, WorkingStatus
-from django.utils import timezone
+# import datetime
 from datetime import datetime
 from datetime import timedelta
+from dateutil.relativedelta import relativedelta
 import csv
 
 # ログ
@@ -59,6 +60,10 @@ def export_csv(request):
 #  DOKINTAI
 #  - 勤怠入力機能
 ###
+# 同じ日のレコードが2つ以上ある場合
+# 出勤時間の場合退勤時間の場合どっちかに処理を寄せる
+# 出勤時間が古い方を採用？
+# 退勤時間が遅い時間を採用？
 def dokintai(request):
     u_id = 180 # TODO とりあえず今は固定
     current_status = WorkingStatus.objects.get(u_id=u_id)
@@ -112,7 +117,6 @@ def dokintai(request):
         
     return render(request, "kintaiapp/home.html", res_dict)
 
-
 ###
 # RECORD
 #  - 勤怠一覧表示
@@ -121,12 +125,44 @@ def dokintai(request):
 def record(request):
     # 一覧表示
     if request.method == 'GET':
-        data = Kintai.objects.all().order_by('id') # memo: 降順は'-id'
-        data_dict = {'kintailist': data}
-        for i in data:
-            if i.breaktime is None:
-                i.breaktime = "-"
+        # Get values from query params
+        if 'month' in request.GET and 'year' in request.GET:
+            year = int(request.GET['year'])
+            month = int(request.GET['month'])
+        else:
+            # if there's no query params, show this month
+            year = datetime.today().year
+            month = datetime.today().month
+
+        data_dict = _get_record_by_month(year, month)
+        print(len(data_dict))
         return render(request, 'kintaiapp/record.html', data_dict)
+
+###
+# Get record by month
+# 月毎の勤怠を取得
+# param:
+#   year : int
+#   month: int
+###
+def _get_record_by_month(year, month):
+    date = datetime(year, month, 1)
+    data = Kintai.objects.filter(begintime__year=year, begintime__month=month).order_by('id') # memo: order_by 降順は'-id'
+    last_month = date - relativedelta(months=1)
+    next_month = date + relativedelta(months=1)
+    data_dict = {
+        'kintailist': data,
+        'datelist': [
+            {
+                'lastmonth_year': last_month.year,
+                'lastmonth_month': last_month.month,
+                'nextmonth_year': next_month.year,
+                'nextmonth_month': next_month.month,
+            }
+        ],
+    }
+
+    return data_dict
 
 ###
 # Calculate break time with start time and end time

@@ -28,9 +28,21 @@
                 </table>
             </div>
         </div>
-        <footer>
-            <a href="/">Back to home</a>
-        </footer>
+    </div>
+    <div class="container">
+        <div class="row" style="margin: 8% 0;">
+            {% for date in datelist %}
+            <div class="col-4 col-sm-4 each_month text-center">
+                <a href="{% url 'record/monthly' %}?year={{date.lastmonth_year}}&month={{date.lastmonth_month}}">← {{ date.lastmonth_year }}/{{ date.lastmonth_month }}</a>
+            </div>
+            <div class="col-4 col-sm-4 each_month text-center">
+                <a href="{% url 'record' %}">This Month</a>
+            </div>
+            <div class="col-4 col-sm-4 each_month text-center">
+                <a href="{% url 'record/monthly' %}?year={{date.nextmonth_year}}&month={{date.nextmonth_month}}">{{ date.nextmonth_year }}/{{ date.nextmonth_month }} →</a>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 {% endblock %}

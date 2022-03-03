@@ -13,7 +13,6 @@
     table tr {
         font-size: 13px;
     }
-    
 }
 
 
@@ -33,7 +32,7 @@ h3 {
 }    
 
 table{
-    margin-bottom: 15%;
+    margin-bottom: 5%;
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
@@ -44,23 +43,9 @@ table tr{
     cursor: pointer;
 }
 
-/* table tr:hover{
-background-color: #d4f0fd;
-} */
 
 table th,table td{
     text-align: center;
     width: 25%;
     padding: 15px 0;
 }
-
-/* table td.icon{
-    background-size: 35px;
-    background-position: left 5px center;
-    background-repeat: no-repeat;
-    padding-left: 30px;
-} */
-
-/* table td.icon {
-    background-image: url(/lists/pics/mini.PNG)
-} */
