@@ -3,8 +3,11 @@
 LIVE: https://kintaidemo.herokuapp.com/  
 
 # Feature
-- 打刻
-- 一覧表示
+- Create a record with start time
+- Read all of the records
+  - Display records monthly
+- Update a record with end time and break time
+- Export as a CSV file
 
 # Language and Tools
 [Back-End]  
