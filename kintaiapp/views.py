@@ -135,7 +135,6 @@ def record(request):
             month = datetime.today().month
 
         data_dict = _get_record_by_month(year, month)
-        print(len(data_dict))
         return render(request, 'kintaiapp/record.html', data_dict)
 
 ###
