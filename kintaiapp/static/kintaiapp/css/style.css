@@ -1,13 +1,5 @@
-.font_benasneue {
-    font-family: 'Bebas Neue', cursive;
-}
-
 h1 {
     text-align: center;
-}
-
-.bg_rose {
-    background-color: rgb(238, 231, 231);
 }
 
 .navbar {
@@ -23,12 +15,6 @@ h1 {
     box-shadow: 2px 2px 4px rgb(161, 161, 161);
 }
 
-.section {
-    background-color: #ffffff;
-    padding:100px 0 60px;
-}
-
 .currentTime {
     text-align: center;
 }
-
