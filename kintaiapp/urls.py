@@ -1,5 +1,4 @@
 from django.urls import path
-from datetime import datetime
 from . import views
 
 urlpatterns = [
