@@ -4,9 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from kintaiapp.models import Kintai, WorkingStatus
-# import datetime
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import csv
 
@@ -75,31 +73,45 @@ def dokintai(request):
     # ステータスチェック
     if current_status.isworking:
         # 退勤時間記入
-        # 同日でfinishtimeがnullのレコードがあればupdateする
-        kintai_today = Kintai.objects.get(
+        # finishtimeがnullのレコードを取得 (同日関係なく)
+        kintai_data = Kintai.objects.get(
             u_id=u_id,
-            workingday=datetime.today(),
             finishtime=None
         )
-        if kintai_today:
+        if kintai_data:
+            # 退勤打刻時に日付が当日以外の場合
+            if kintai_data.workingday != datetime.today():
+                # (1) 退勤時間を今日の0:00にする
+                dt = datetime.now()
+                midnight_time = dt.replace(hour=0, minute=0, second=0, )
+                kintai_data.finishtime = midnight_time
+                # (2) 出勤時間0:00, 退勤時間現時刻で新しいレコードを追加
+                new_kintai_data = Kintai.objects.create(
+                    u_id=u_id,
+                    workingday=datetime.today(),
+                    begintime=midnight_time,
+                    finishtime=datetime.now(),
+                )
+                new_kintai_data.save()
             # 休憩時間計算
             endtime = datetime.now()
-            breaktime = _calc_breaktime(kintai_today.begintime, endtime)
+            breaktime = _calc_breaktime(kintai_data.begintime, endtime)
             # 更新
-            kintai_today.finishtime = endtime
-            kintai_today.breaktime = breaktime
+            kintai_data.finishtime = endtime
+            kintai_data.breaktime = breaktime
         else:
             # isworkingでレコードがない場合：退勤時間のみを記入しレコード追加 TODO
-            kintai_today = Kintai.objects.create(
+            kintai_data = Kintai.objects.create(
                 u_id=u_id,
                 workingday=datetime.today(),
                 finishtime=datetime.now(),
+
             )
         # isWorkingのフラグ下ろす
         current_status.isworking = False
     else:
         # 出勤時間記入 (勤怠レコード追加)
-        kintai_today = Kintai.objects.create(
+        kintai_data = Kintai.objects.create(
             u_id=u_id,
             workingday=datetime.today(),
             begintime=datetime.now(),
@@ -108,7 +120,7 @@ def dokintai(request):
         current_status.isworking = True
 
     # 更新内容を保存
-    kintai_today.save()
+    kintai_data.save()
     current_status.save()
 
     logger.debug(f'Successfully saved Kintai - id={u_id} working status is now {current_status.isworking}')
@@ -183,7 +195,7 @@ def _calc_breaktime(start, end):
         return timedelta()
     elif total_hour.seconds >= 14400 and total_hour < 28800:
         # 4時間以上8時間未満
-        return datetime.timedelta(seconds=1800)
+        return timedelta(seconds=1800)
     elif total_hour.seconds >= 28800:
         # 8時間以上
-        return datetime.timedelta(seconds=3600)
+        return timedelta(seconds=3600)
