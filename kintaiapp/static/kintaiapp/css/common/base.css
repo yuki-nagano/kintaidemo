@@ -1,0 +1,13 @@
+
+.bg_rose {
+    background-color: rgb(238, 231, 231);
+}
+
+.font_benasneue {
+    font-family: 'Bebas Neue', cursive;
+}
+
+.section {
+    background-color: #ffffff;
+    padding:100px 0 60px;
+}
