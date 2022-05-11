@@ -93,12 +93,13 @@ def dokintai(request):
                     finishtime=datetime.now(),
                 )
                 new_kintai_data.save()
-            # 休憩時間計算
-            endtime = datetime.now()
-            breaktime = _calc_breaktime(kintai_data.begintime, endtime)
-            # 更新
-            kintai_data.finishtime = endtime
-            kintai_data.breaktime = breaktime
+            else:
+                # 休憩時間計算
+                endtime = datetime.now()
+                breaktime = _calc_breaktime(kintai_data.begintime, endtime)
+                # 更新
+                kintai_data.finishtime = endtime
+                kintai_data.breaktime = breaktime
         else:
             # isworkingでレコードがない場合：退勤時間のみを記入しレコード追加 TODO
             kintai_data = Kintai.objects.create(
