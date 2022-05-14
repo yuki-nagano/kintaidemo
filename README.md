@@ -19,7 +19,7 @@ Virtual Environment: Pipenv
 Database : Heroku Postgres   
 
 [Front-End]  
-Language : HTML, CSS, JavaScript (Vanilla)
+Language : HTML, CSS, JavaScript (Vanilla)  
 Framework: Bootstrap
 
 [Other]  
