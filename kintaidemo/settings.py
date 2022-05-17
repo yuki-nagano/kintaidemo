@@ -14,6 +14,7 @@ https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settin
 """
 
 import sentry_sdk
+import yaml
 from sentry_sdk.integrations.django import DjangoIntegration
 
 
@@ -26,6 +27,31 @@ load_dotenv()
 
 # 一番上のプロジェクトディレクトリをベースとして指定
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+SETTINGS_DIR = os.path.join(BASE_DIR, 'kintaidemo')
+default_yaml_path = os.path.join(SETTINGS_DIR, 'default.yaml')
+
+with open(default_yaml_path) as f:
+    settings = yaml.load(f, Loader=yaml.FullLoader)
+
+# LOGGING = {
+#     'root': {
+#         'level': 'DEBUG'
+#     },
+#     'version': 1,
+#     'formatters': 'verbose',
+#     'handlers': {
+#         'default': {
+#             'class': 'logging.StreamHandler'
+#         }
+#     },
+#     'loggers': {
+#         'django.server': {
+#             'handlers': ['default'],
+#             'level': 'DEBUG'
+#         }
+#     }
+# }
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
@@ -171,3 +197,5 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+
+globals().update(settings)
