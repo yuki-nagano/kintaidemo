@@ -14,7 +14,14 @@ https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settin
 """
 
 import sentry_sdk
+<<<<<<< HEAD
 import yaml
+=======
+<<<<<<< HEAD
+import yaml
+=======
+>>>>>>> 1a85541ecba6d0b117e6f4c426b337c1bee8e85a
+>>>>>>> fe530d68e5d1f03596fb6cbb864f23cef13bb9e3
 from sentry_sdk.integrations.django import DjangoIntegration
 
 
@@ -197,5 +204,13 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+<<<<<<< HEAD
 
 globals().update(settings)
+=======
+<<<<<<< HEAD
+
+globals().update(settings)
+=======
+>>>>>>> 1a85541ecba6d0b117e6f4c426b337c1bee8e85a
+>>>>>>> fe530d68e5d1f03596fb6cbb864f23cef13bb9e3
