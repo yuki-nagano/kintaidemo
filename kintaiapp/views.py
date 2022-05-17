@@ -1,4 +1,5 @@
 import logging
+import sys
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -9,7 +10,6 @@ from dateutil.relativedelta import relativedelta
 import csv
 
 # ログ
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 STATUS_FOR_DISPLAY = {
@@ -29,6 +29,9 @@ def home(request):
     res_dict = {
         'text': STATUS_FOR_DISPLAY[user.isworking]
     }
+    logger.info('this is info')
+    logger.warning('this is warning')
+    logger.error('this is error with stdout')
     return render(request, "kintaiapp/home.html", res_dict)
 
 
@@ -68,7 +71,7 @@ def dokintai(request):
     u_id = 180  # TODO とりあえず今は固定
     current_status = WorkingStatus.objects.get(u_id=u_id)
 
-    logger.debug(f'Update Kintai - id={u_id} working status is {current_status.isworking}')
+    logger.info(f'Update Kintai - id={u_id} working status is {current_status.isworking}')
 
     # ステータスチェック
     if current_status.isworking:
@@ -89,6 +92,7 @@ def dokintai(request):
                 new_kintai_data = Kintai.objects.create(
                     u_id=u_id,
                     workingday=datetime.today(),
+
                     begintime=midnight_time,
                     finishtime=datetime.now(),
                 )
@@ -124,7 +128,7 @@ def dokintai(request):
     kintai_data.save()
     current_status.save()
 
-    logger.debug(f'Successfully saved Kintai - id={u_id} working status is now {current_status.isworking}')
+    logger.info(f'Successfully saved Kintai - id={u_id} working status is now {current_status.isworking}')
 
     res_dict = {
         'text': STATUS_FOR_DISPLAY[current_status.isworking]
