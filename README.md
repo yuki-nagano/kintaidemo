@@ -6,17 +6,17 @@ LIVE: https://kintaidemo.herokuapp.com/
 
 # Feature
 - Create a record with start time
-- Read all of the records
+- Read all the records
   - Display records monthly
 - Update a record with end time and break time
 - Export as a CSV file
 
 # Language and Tools
 [Back-End]  
-Language: Python 3.9.6  
+Language: Python 3.10.9  
 Framework: Django 4.0.2  
 Virtual Environment: Pipenv  
-Database : Heroku Postgres   
+Database : Postgres   
 
 [Front-End]  
 Language : HTML, CSS, JavaScript (Vanilla)  
