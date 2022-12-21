@@ -1,5 +1,5 @@
-# python:3.9.6の公式 image をベースの image として設定
-FROM python:3.9.6
+# python:3.10.9の公式 image をベースの image として設定
+FROM python:3.10.9
 
 # 作業ディレクトリの作成
 RUN mkdir /code
