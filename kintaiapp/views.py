@@ -23,6 +23,14 @@ STATUS_FOR_DISPLAY = {
 #  - ホーム画面
 ###
 def home(request):
+    # テスト用（削除予定）
+    record = WorkingStatus.objects.all()
+    if len(record) == 0:
+        WorkingStatus.objects.create(
+            u_id=180,
+            isworking=False
+        )
+
     u_id = 180  # TODO とりあえず今は固定
     user = WorkingStatus.objects.get(u_id=u_id)
     # ステータスチェック
