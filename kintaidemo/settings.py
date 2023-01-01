@@ -12,13 +12,14 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 settings.py for Heroku
 https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
 """
-
+import dj_database_url
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 
 from pathlib import Path
 import os
+import environ
 from dotenv import load_dotenv
 import django_heroku
 
@@ -91,15 +92,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kintaidemo.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-database_url = os.getenv('DATABASE_URL')
 
 DATABASES = {
     'default': {
-        'DATABASE_URL': database_url
+        'ENGINE': os.getenv('ENGINE'),
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT')
     }
 }
 
