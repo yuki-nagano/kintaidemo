@@ -11,7 +11,6 @@ class Kintai(models.Model):
     breaktime = models.DurationField(blank=True, null=True)
     
     class Meta:
-        managed = False
         db_table = 'kintai'
 
 class WorkingStatus(models.Model):
@@ -19,6 +18,5 @@ class WorkingStatus(models.Model):
     isworking = models.BooleanField()
 
     class Meta:
-        managed = False
         db_table = 'working_status'
 

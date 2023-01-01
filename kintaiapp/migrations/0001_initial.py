@@ -23,7 +23,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'kintai',
-                'managed': False,
             },
         ),
         migrations.CreateModel(
@@ -34,7 +33,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'working_status',
-                'managed': False,
             },
         ),
     ]
