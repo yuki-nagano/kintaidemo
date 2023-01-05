@@ -162,6 +162,7 @@ def _calc_breaktime(start, end):
         # 8時間以上
         return timedelta(seconds=3600)
 
+
 ###
 # RECORD VIEWS
 #  - 勤怠一覧表示
@@ -182,7 +183,6 @@ class RecordViews(View):
         data_dict = self._get_record_by_month(year, month)
         return render(request, 'kintaiapp/record.html', data_dict)
 
-
     ###
     # Get record by month
     # 月毎の勤怠を取得
@@ -190,7 +190,7 @@ class RecordViews(View):
     #   year : int
     #   month: int
     ###
-    def _get_record_by_month(self, year, month):
+    def _get_record_by_month(self, year: int, month: int) -> dict:
         date = datetime(year, month, 1)
         data = Kintai.objects.filter(begintime__year=year, begintime__month=month).order_by(
             'id')  # memo: order_by 降順は'-id'
