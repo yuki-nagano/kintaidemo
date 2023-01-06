@@ -2,7 +2,6 @@ import logging
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import UpdateView
 from django.shortcuts import redirect
@@ -225,8 +224,3 @@ class RecordUpdateViews(UpdateView):
     def form_valid(self, form):
         post = form.save()
         return redirect('record')
-# class KintaiEditForm(forms.ModelForm):
-#     class Meta:
-#         model = Kintai
-#         fields = ['workingday', 'begintime', 'finishtime', 'breaktime']
-#
