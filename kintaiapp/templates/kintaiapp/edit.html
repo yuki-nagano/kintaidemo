@@ -1,0 +1,33 @@
+<!-- 共通部分(ヘッダーフッター)は以下をextends -->
+{% extends "kintaiapp/common/base.html" %}
+
+{% block content %}
+<body class="for_record">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12">
+                <h3>Edit Your Working History</h3>
+                <form method="post">
+                    <table>
+                        <tr>
+                            <th>Date</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Break</th>
+                        </tr>
+
+                            <tr>
+                                <td>{{ form.workingday }}</td>
+                                <td>{{ form.begintime }}</td>
+                                <td>{{ form.finishtime }}</td>
+                                <td>{{ form.breaktime }}</td>
+                            </tr>
+                        {% csrf_token %}
+                    </table>
+                    <input type="submit" value="Save" style="text-align: right">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

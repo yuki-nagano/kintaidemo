@@ -22,7 +22,7 @@
                         <td>{{ record.begintime | time:"H:i" }}</td>
                         <td>{{ record.finishtime | time:"H:i" }}</td>
                         <td>{{ record.breaktime }}</td>
-                        <td><a href="/record">✏️</a></td>
+                        <td><a href="record/edit/{{record.id}}">✏️</a></td>
                     </tr>
                     {% endfor %}
                 </table>
