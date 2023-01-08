@@ -3,6 +3,8 @@ import logging
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
+from django.views.generic import UpdateView
+from django.shortcuts import redirect
 
 from kintaiapp.models import Kintai, WorkingStatus
 from datetime import datetime, timedelta
@@ -166,7 +168,6 @@ def _calc_breaktime(start, end):
 ###
 # RECORD VIEWS
 #  - 勤怠一覧表示
-#  - 勤怠編集 (追加予定)
 ###
 class RecordViews(View):
 
@@ -193,7 +194,7 @@ class RecordViews(View):
     def _get_record_by_month(self, year: int, month: int) -> dict:
         date = datetime(year, month, 1)
         data = Kintai.objects.filter(begintime__year=year, begintime__month=month).order_by(
-            'id')  # memo: order_by 降順は'-id'
+            'workingday')  # memo: order_by 降順は'-id'
         last_month = date - relativedelta(months=1)
         next_month = date + relativedelta(months=1)
         data_dict = {
@@ -210,3 +211,16 @@ class RecordViews(View):
 
         return data_dict
 
+
+###
+# RECORD UPDATE VIEWS
+#  - 勤怠編集
+###
+class RecordUpdateViews(UpdateView):
+    template_name = 'kintaiapp/edit.html'
+    model = Kintai
+    fields = ('workingday', 'begintime', 'finishtime', 'breaktime')
+
+    def form_valid(self, form):
+        post = form.save()
+        return redirect('record')
