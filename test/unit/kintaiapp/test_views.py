@@ -36,6 +36,26 @@ class TestViews(TestCase):
         )
         expected = Kintai.objects.filter(workingday=datetime(2022, 12, 29))
         response = self.client.get(reverse('record/monthly'), {'year': 2022, 'month': 12})
-        print("expected: ", expected)
-        print("response: ", response.context['kintailist'])
         self.assertQuerysetEqual(expected, response.context['kintailist'])
+
+    def test_record_edit(self):
+        row = Kintai.objects.create(
+            u_id=180,
+            workingday=datetime(2023, 1, 5),
+            begintime=datetime(2023, 1, 5, 9, 00, 00, 000),
+            finishtime=None
+        )
+        edited_date = datetime(2023, 1, 5, 12, 00, 00, 000)
+        data = {
+                'workingday': '2023-01-05',
+                'begintime': '2023-01-05 09:00:00',
+                'finishtime': '2023-01-05 12:00:00'
+            }
+        response = self.client.post(
+            reverse('record/edit', kwargs={'pk': row.id}), data=data
+        )
+        row.refresh_from_db()
+        self.assertEqual(edited_date, row.finishtime)
+        self.assertEqual(302, response.status_code)
+        # redirect to record page
+        self.assertEqual('/record', response.url)
