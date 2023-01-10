@@ -7,7 +7,7 @@ from django.views.generic import UpdateView
 from django.shortcuts import redirect
 
 from kintaiapp.models import Kintai, WorkingStatus
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
 import csv
 
@@ -91,7 +91,7 @@ def dokintai(request):
         )
         if kintai_data:
             # 退勤打刻時に日付が当日以外の場合
-            if kintai_data.workingday != datetime.today():
+            if kintai_data.workingday != date.today():
                 # (1) 退勤時間を今日の0:00にする
                 dt = datetime.now()
                 midnight_time = dt.replace(hour=0, minute=0, second=0, )
