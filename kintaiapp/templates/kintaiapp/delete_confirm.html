@@ -1,0 +1,30 @@
+<!-- 共通部分(ヘッダーフッター)は以下をextends -->
+{% extends "kintaiapp/common/base.html" %}
+
+{% block content %}
+    <body class="for_record">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12">
+                <h3>Your Working History</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    <table>
+                        <p>Are you sure to delete this record?</p>
+                        <br>
+                        <tr></tr>
+                        <tr>
+                            <td>{{ object.workingday }}</td>
+                            <!-- MEMO: no need space bewteen : and "H:i" -->
+                            <td>{{ object.begintime | time:"H:i" }}</td>
+                            <td>{{ object.finishtime | time:"H:i" }}</td>
+                            <td>{{ object.breaktime }}</td>
+                        </tr>
+                    </table>
+                    <input type="submit" value="delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
