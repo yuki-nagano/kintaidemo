@@ -59,3 +59,21 @@ class TestViews(TestCase):
         self.assertEqual(302, response.status_code)
         # redirect to record page
         self.assertEqual('/record', response.url)
+
+    def test_record_delete(self):
+        row = Kintai.objects.create(
+            u_id=180,
+            workingday=datetime(2023, 1, 14),
+            begintime=datetime(2023, 1, 14, 9, 00, 00, 000),
+            finishtime=None
+        )
+        response = self.client.post(
+            reverse('record/delete', kwargs={'pk': row.id})
+        )
+        # memo
+        # filter: 該当のレコードがなかった場合空のQuerySetを返す
+        # get: 該当のレコードがなかった場合エラー(DoesNotExist)返す
+        actual = Kintai.objects.filter(id=row.id)
+        self.assertEqual(302, response.status_code)
+        self.assertEqual(0, len(actual))
+
