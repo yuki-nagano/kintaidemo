@@ -10,6 +10,7 @@ LIVE: https://kintaidemo.herokuapp.com/
   - Display records monthly
 - Update a record with end time and break time
 - Edit a record
+- Delete a record
 - Export as a CSV file
 
 # Language and Tools

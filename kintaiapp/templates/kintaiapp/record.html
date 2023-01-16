@@ -13,7 +13,7 @@
                         <th>Start</th>
                         <th>End</th>
                         <th>Break</th>
-
+                        <th>Edit/Delete</th>
                     </tr>
                     {% for record in kintailist %}
                     <tr>
@@ -23,6 +23,7 @@
                         <td>{{ record.finishtime | time:"H:i" }}</td>
                         <td>{{ record.breaktime }}</td>
                         <td><a href="record/edit/{{record.id}}">✏️</a></td>
+                        <td><a href="record/delete/{{record.id}}">🗑</a></td>
                     </tr>
                     {% endfor %}
                 </table>

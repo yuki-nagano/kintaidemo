@@ -2,8 +2,9 @@ import logging
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 from django.shortcuts import redirect
 
 from kintaiapp.models import Kintai, WorkingStatus
@@ -224,3 +225,13 @@ class RecordUpdateViews(UpdateView):
     def form_valid(self, form):
         post = form.save()
         return redirect('record')
+
+
+###
+# RECORD DELETE VIEWS
+#  - 勤怠削除
+###
+class RecordDeleteViews(DeleteView):
+    model = Kintai
+    template_name = 'kintaiapp/delete_confirm.html'
+    success_url = reverse_lazy('record')
