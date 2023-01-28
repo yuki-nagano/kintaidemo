@@ -12,6 +12,26 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [3.10.9]
+        db: [postgres]
+        include:
+          - db: postgres
+            db_port: 5432
+
+    services:
+      postgres:
+        # Docker postgres image from docker hub
+        # refer: https://hub.docker.com/_/postgres
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
     - uses: actions/checkout@v2
@@ -24,5 +44,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
+      env:
+        DB: ${{ matrix.db }}
+        DB_HOST: 127.0.0.1
+        DB_PORT: ${{ matrix.db_port }}
+        DB_PASSWORD: password
       run: |
         python manage.py test
