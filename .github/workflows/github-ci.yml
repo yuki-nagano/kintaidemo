@@ -28,7 +28,7 @@ jobs:
         image: postgres:14
         env:
           POSTGRES_USER: kintaidemo
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
