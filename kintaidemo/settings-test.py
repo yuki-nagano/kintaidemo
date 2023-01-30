@@ -16,10 +16,7 @@ import dj_database_url
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-
-from pathlib import Path
 import os
-import environ
 from dotenv import load_dotenv
 import django_heroku
 
@@ -28,18 +25,6 @@ load_dotenv()
 # 一番上のプロジェクトディレクトリをベースとして指定
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
-
-# for local, will set it up by host later
-# DEBUG = True
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-# Memo: this is also set on Heroku Config
-SECRET_KEY = os.getenv('SECRET_KEY')
 
 ALLOWED_HOSTS = ['*']
 
@@ -102,7 +87,7 @@ DATABASES = {
         'NAME': 'kintaidemo',
         'USER': 'kintaidemo',
         'PASSWORD': 'test',
-        'HOST': 'docker.for.mac.localhost',
+        'HOST': 'localhost',
         'PORT': 5432
     }
 }
