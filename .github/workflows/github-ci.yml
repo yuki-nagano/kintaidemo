@@ -61,4 +61,4 @@ jobs:
         DB_PORT: ${{ matrix.db_port }}
         DB_PASSWORD: test
       run: |
-        python manage.py test --settings=kintaidemo.settings-test
+        python manage.py test

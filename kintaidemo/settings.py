@@ -39,7 +39,7 @@ DEBUG = os.getenv('DEBUG')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Memo: this is also set on Heroku Config
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'test_secret_key')
 
 ALLOWED_HOSTS = ['kintaidemo.herokuapp.com', '127.0.0.1']
 
@@ -98,12 +98,12 @@ WSGI_APPLICATION = 'kintaidemo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('ENGINE'),
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT')
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('NAME', 'kintaidemo'),
+        'USER': os.getenv('USER', 'kintaidemo'),
+        'PASSWORD': os.getenv('PASSWORD', 'test'),
+        'HOST': os.getenv('HOST', 'localhost'),
+        'PORT': os.getenv('PORT', '5432'),
     }
 }
 
