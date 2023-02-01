@@ -102,7 +102,7 @@ DATABASES = {
         'NAME': os.getenv('NAME', 'kintaidemo'),
         'USER': os.getenv('USER', 'kintaidemo'),
         'PASSWORD': os.getenv('PASSWORD', 'test'),
-        'HOST': os.getenv('HOST', 'localhost'),
+        'HOST': os.getenv('HOST', 'docker.for.mac.localhost'),
         'PORT': os.getenv('PORT', '5432'),
     }
 }
