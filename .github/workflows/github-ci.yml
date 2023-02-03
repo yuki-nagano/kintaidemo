@@ -23,9 +23,9 @@ jobs:
         # refer: https://hub.docker.com/_/postgres
         image: postgres:14
         env:
-          USER: postgres
-          PASSWORD: postgres
-          NAME: postgres
+          NAME: kintaidemo
+          USER: kintaidemo
+          PASSWORD: test
         ports:
         - 5432:5432
           # needed because the postgres container does not provide a healthcheck
@@ -52,7 +52,7 @@ jobs:
     - name: Run Tests
       env:
         HOST: 127.0.0.1
-        PASSWORD: postgres
-        USER: postgres
+        USER: kintaidemo
+        PASSWORD: test
       run: |
         python manage.py test
