@@ -23,9 +23,9 @@ jobs:
         # refer: https://hub.docker.com/_/postgres
         image: postgres:14
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
+          USER: postgres
+          PASSWORD: postgres
+          NAME: postgres
         ports:
         - 5432:5432
           # needed because the postgres container does not provide a healthcheck
@@ -51,8 +51,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Run Tests
       env:
-        DB_HOST: 127.0.0.1
-        DB_PASSWORD: postgres
-        DB_USER: postgres
+        HOST: 127.0.0.1
+        PASSWORD: postgres
+        USER: postgres
       run: |
         python manage.py test
