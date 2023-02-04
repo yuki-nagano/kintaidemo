@@ -26,6 +26,7 @@ Framework: Bootstrap
 
 [Other]  
 Deploy/Server: Heroku  
+CI/CD: GitHub Actions  
 Library:   
 [moment.js](https://github.com/moment/moment/)  (For displaying clock)
 
