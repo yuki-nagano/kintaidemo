@@ -29,7 +29,7 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = os.getenv('DEBUG', False)
 
 # for local, will set it up by host later
 # DEBUG = True
@@ -39,7 +39,7 @@ DEBUG = os.getenv('DEBUG')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Memo: this is also set on Heroku Config
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'test_secret_key')
 
 ALLOWED_HOSTS = ['kintaidemo.herokuapp.com', '127.0.0.1']
 
@@ -95,17 +95,28 @@ WSGI_APPLICATION = 'kintaidemo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('ENGINE'),
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT')
+if os.environ.get('GITHUB_WORKFLOW'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': 'test',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('NAME'),
+            'USER': os.getenv('USER'),
+            'PASSWORD': os.getenv('PASSWORD'),
+            'HOST': os.getenv('HOST'),
+            'PORT': os.getenv('PORT'),
+        }
+    }
 
 
 # Password validation
