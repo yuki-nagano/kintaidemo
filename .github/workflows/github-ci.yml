@@ -23,8 +23,6 @@ jobs:
         # refer: https://hub.docker.com/_/postgres
         image: postgres:14
         env:
-          POSTGRES_NAME: kintaidemo
-          POSTGRES_USER: kintaidemo
           POSTGRES_PASSWORD: test
         ports:
         - 5432:5432
@@ -54,7 +52,6 @@ jobs:
       env:
         POSTGRES_HOST: 127.0.0.1
         POSTGRES_PORT: 5432
-        POSTGRES_USER: kintaidemo
       run: python manage.py migrate
 
     - name: Run Tests
