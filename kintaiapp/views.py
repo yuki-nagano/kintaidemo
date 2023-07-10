@@ -181,7 +181,12 @@ class RecordViews(View):
             # if there's no query params, show this month
             year = datetime.today().year
             month = datetime.today().month
-
+        # check_cache
+        # key = f'{year}_{month}'
+        # cache = dynamo_cache.get(key)
+        # if cache:
+        #     data_dict = cache.dict()
+        # else:
         data_dict = self._get_record_by_month(year, month)
         return render(request, 'kintaiapp/record.html', data_dict)
 

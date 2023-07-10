@@ -118,6 +118,9 @@ else:
         }
     }
 
+AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY', False)
+AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY', False)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

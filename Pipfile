@@ -49,6 +49,7 @@ Pygments = "==2.10.0"
 Werkzeug = "==2.0.1"
 python-dateutil = "*"
 sentry-sdk = "*"
+boto3 = "*"
 
 [dev-packages]
 
