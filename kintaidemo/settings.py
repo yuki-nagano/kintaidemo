@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_dynamodb_cache',
     # add app
     'kintaiapp'
 ]
@@ -189,3 +190,17 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_dynamodb_cache.backend.DjangoCacheBackend",
+        "LOCATION": os.getenv('CACHE_TABLE_NAME', ""),  # (mandatory)
+        "TIMEOUT": 120,                                 # (optional) seconds
+        "KEY_PREFIX": "django_dynamodb_cache",          # (optional)
+        "OPTIONS": {
+            "aws_region_name": "us-east-2",                             # (optional)
+            "aws_access_key_id": os.getenv('AWS_ACCESS_KEY', ""),       # (optional)
+            "aws_secret_access_key": os.getenv('AWS_SECRET_KEY', ""),   # (optional)
+       }
+    }
+}
