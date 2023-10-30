@@ -12,13 +12,14 @@ LIVE: https://kintaidemo.herokuapp.com/
 - Edit a record
 - Delete a record
 - Export as a CSV file
+- Login with Google
 
 # Language and Tools
 [Back-End]  
 Language: Python 3.10.9  
 Framework: Django 4.0.2  
 Virtual Environment: Pipenv  
-Database : Postgres   
+Database : Postgres (Supabase)   
 
 [Front-End]  
 Language : HTML, CSS, JavaScript (Vanilla)  
